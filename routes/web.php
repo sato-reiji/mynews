@@ -15,5 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::group(['profix' => 'admin'],function() {
-    Route::get('news/create','Admin/NewsController@addd');
+    Route::get('news/create','Admin/NewsController@add');
+    Route::get('profile/create','Admin/ProfileController@add');
+    Route::get('profile/edit','Admin/ProfileController@edit');
 });
