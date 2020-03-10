@@ -23,19 +23,7 @@ Route::group(['prefix' => 'admin'], function() {
     Route::post('profile/edit','Admin\ProfileController@update');
 
 });
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get('/about','Admin\AboutController@add');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
