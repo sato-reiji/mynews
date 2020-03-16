@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 
 use App\Profile;
 
+use App\ProfileHistory;
+
+use Carbon\Carbon;
+
 class ProfileController extends Controller
 {
     //
@@ -63,18 +67,22 @@ class ProfileController extends Controller
   {
       // Validationをかける
       $this->validate($request, Profile::$rules);
-      // News Modelからデータを取得する
       $profile = Profile::find($request->id);
-      // 送信されてきたフォームデータを格納する
       $profile_form = $request->all();
       unset($profile_form['_token']);
+      unset($profile_form['_remove']);
 
       // 該当するデータを上書きして保存する
       $profile->fill($profile_form)->save();
+      
+      // 以下を追記
+        $history = new ProfileHistory;
+        $history->profile_id = $profile->id;
+        $history->edited_at = Carbon::now();
+        $history->save();
 
       return redirect('admin/profile');
   }
-  // 以下を追記　　
   public function delete(Request $request)
   {
       // 該当するNews Modelを取得
